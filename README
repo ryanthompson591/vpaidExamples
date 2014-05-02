@@ -1,0 +1,7 @@
+A set of Javascript VPAID ads.
+
+This is a set of examples to help people build VPAID ads.
+
+These samples are also useful for people with players that need VPAID ads to test against.
+
+I've built these ads so that they should be compilable by closure.  https://developers.google.com/closure/

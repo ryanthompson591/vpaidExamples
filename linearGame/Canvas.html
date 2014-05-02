@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>Canvas</title>
+<script src="../../third-party/closure-library/closure/goog/base.js"></script>
+<script src="deps.js"></script>
+<script>
+goog.require('bigryan.LinearAd');
+</script>
+</head>
+<body>
+
+<div id="canvasWrapper">
+</div>
+
+<script>
+var vpaidAd;
+var adLoadedCallback = function() {
+  vpaidAd.startAd();
+};
+
+var emptyCallback = function() {
+ //nothing to see here folks move along.
+};
+
+var stopped = function() {
+  console.log('stopped - external');
+};
+
+function main() {
+  //start();
+  vpaidAd = getVPAIDAd();
+  var handshakeVersion = vpaidAd.handshakeVersion('2.0');
+  var environmentVars = {};
+  environmentVars.slot = document.getElementById('canvasWrapper');
+  environmentVars.videSlot = null; /// Not used in this ad
+  vpaidAd.subscribe(adLoadedCallback, 'AdLoaded');
+  vpaidAd.subscribe(emptyCallback, 'AdStarted');
+  vpaidAd.subscribe(stopped, 'AdStopped');
+  vpaidAd.initAd(640, 360, 'normal', 512, null /*no config*/, environmentVars);
+}
+main();
+</script>
+
+<p>Some commands I need <br/><br/>
+  ../closure/bin/build/depswriter.py --root_with_prefix="bigryan ../../Canvas/bigryan" > deps.js
+  <br>
+  python -m SimpleHTTPServer 8000	
+	
+</p>
+</body>
+
+</html>
