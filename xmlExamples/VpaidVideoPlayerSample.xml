@@ -12,7 +12,7 @@
 {"videos":[
   {"url":"http://fakedomain.com/solidblue.mp4","mimetype":"video/mp4"},
   {"url":"http://fakedomain.com/solidblue.webm","mimetype":"video/webm"}],
-"overlay":"http://fakedomain.com/wireless_4g_banner_us_300x60.jpg"}
+ "overlay":"http://fakedomain.com/wireless_4g_banner_us_300x60.jpg"}
 ]]></AdParameters>
 <VideoClicks>
 <ClickThrough id="GDFP"><![CDATA[http://google.com]]></ClickThrough>
