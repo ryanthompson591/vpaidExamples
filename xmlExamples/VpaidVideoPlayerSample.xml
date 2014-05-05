@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><VAST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vast.xsd" version="3.0">
+<Ad id="1234567">
+<InLine>
+<AdSystem>GDFP</AdSystem>
+<AdTitle>Linear VPAID</AdTitle>
+<Description>Vpaid Linear Video Ad</Description>
+<Creatives>
+<Creative sequence="1">
+<Linear>
+<Duration>00:00:13</Duration>
+<AdParameters><![CDATA[
+{"videos":[
+  {"url":"http://fakedomain.com/solidblue.mp4","mimetype":"video/mp4"},
+  {"url":"http://fakedomain.com/solidblue.webm","mimetype":"video/webm"}],
+"overlay":"http://fakedomain.com/wireless_4g_banner_us_300x60.jpg"}
+]]></AdParameters>
+<VideoClicks>
+<ClickThrough id="GDFP"><![CDATA[http://google.com]]></ClickThrough>
+</VideoClicks>
+<MediaFiles>
+<MediaFile apiFramework="VPAID" type="application/javascript">http://ryanthompson.github.io/ryanthompson591/VpaidExamples/Examples/VpaidVideoPlayer.js</MediaFile>
+</MediaFiles>
+</Linear>
+</Creative>
+<Creative sequence="1">
+</Creative>
+</Creatives>
+</InLine>
+</Ad>
+</VAST>
