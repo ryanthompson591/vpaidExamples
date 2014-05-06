@@ -8,10 +8,21 @@
  */
 var Application = function() {
   this.xmlBox_ = document.getElementById('requestXMLInput');
-  this.sampleLink_ = document.getElementById('sampleLink');
-  this.sampleLink_.addEventListener(
+  document.getElementById('videoLink').addEventListener(
       'click',
       this.bind_(this, this.requestVideoSample_),
+      false);
+  document.getElementById('nonLinearLink').addEventListener(
+      'click',
+      this.bind_(this, this.requestNonLinearSample_),
+      false);
+  document.getElementById('sampleLink').addEventListener(
+      'click',
+      this.bind_(this, this.requestSample_),
+      false);
+  document.getElementById('gameLink').addEventListener(
+      'click',
+      this.bind_(this, this.requestGameSample_),
       false);
   this.console_ = document.getElementById('console');
   this.playButton_ = document.getElementById('playpause');
@@ -38,8 +49,6 @@ var Application = function() {
         this.bind_(this, this.onFullscreenChange_),
         false);
   }
-
-  this.sampleTag = 'http://pubads.g.doubleclick.net/gampad/ads?sz=640x360&iu=/6062/iab_vast_samples/skippable&ciu_szs=300x250,728x90&impl=s&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1&url=[referrer_url]&correlator=[timestamp]';
 
   this.playing_ = false;
   this.adsActive_ = false;
@@ -85,6 +94,18 @@ Application.prototype.bind_ = function(thisObj, fn) {
 
 Application.prototype.requestVideoSample_ = function() {
   this.makeRequest_('http://ryanthompson591.github.io/vpaidExamples/xmlExamples/VpaidVideoPlayerSample.xml');
+};
+
+Application.prototype.requestNonLinearSample_ = function() {
+  this.makeRequest_('http://ryanthompson591.github.io/vpaidExamples/xmlExamples/NonLinearSample.xml');
+};
+
+Application.prototype.requestSample_ = function() {
+  this.makeRequest_('http://ryanthompson591.github.io/vpaidExamples/xmlExamples/TestersSample.xml');
+};
+
+Application.prototype.requestGameSample_ = function() {
+  this.makeRequest_('http://ryanthompson591.github.io/vpaidExamples/xmlExamples/GameSample.xml');
 };
 
 Application.prototype.makeRequest_ = function(url) {
