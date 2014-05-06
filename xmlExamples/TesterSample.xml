@@ -8,14 +8,6 @@
 <Creative sequence="1">
 <Linear>
 <Duration>00:00:13</Duration>
-<AdParameters>
-<![CDATA[
-{"videos":[
- {"url":"http://download.wavetlan.com/SVV/Media/HTTP/MP4/ConvertedFiles/Media-Convert/Unsupported/test7.mp4","mimetype":"video/mp4"},
- {"url":"http://video.webmfiles.org/big-buck-bunny_trailer.webm","mimetype":"video/webm"}],
- "overlay":"http://ryanthompson591.github.io/vpaidExamples/img/doge.jpg"}
-]]>
-</AdParameters>
 <VideoClicks>
 <ClickThrough id="GDFP">
 <![CDATA[ http://google.com ]]>
@@ -23,7 +15,7 @@
 </VideoClicks>
 <MediaFiles>
 <MediaFile apiFramework="VPAID" type="application/javascript">
-http://ryanthompson591.github.io/vpaidExamples/examples/VpaidVideoAd.js
+http://ryanthompson591.github.io/vpaidExamples/examples/VpaidCallbackAd.js
 </MediaFile>
 </MediaFiles>
 </Linear>
