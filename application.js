@@ -20,10 +20,10 @@ var Application = function() {
       'click',
       this.bind_(this, this.requestSample_),
       false);
-  document.getElementById('gameLink').addEventListener(
+/*  document.getElementById('gameLink').addEventListener(
       'click',
       this.bind_(this, this.requestGameSample_),
-      false);
+      false);*/
   this.console_ = document.getElementById('console');
   this.playButton_ = document.getElementById('playpause');
   this.playButton_.addEventListener(
