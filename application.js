@@ -17,7 +17,7 @@ var Application = function() {
   this.playButton_ = document.getElementById('playpause');
   this.playButton_.addEventListener(
       'click',
-      this.onClick_,
+      this.bind_(this, this.onClick_),
       false);
   this.fullscreenButton_ = document.getElementById('fullscreen');
   this.fullscreenButton_.addEventListener(
