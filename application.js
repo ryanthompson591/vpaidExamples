@@ -7,17 +7,17 @@
  * Handles user interaction and creates the player and ads controllers.
  */
 var Application = function() {
-  this.tagBox_ = document.getElementById('tagText');
+  this.xmlBox_ = document.getElementById('requestXMLInput');
   this.sampleLink_ = document.getElementById('sampleLink');
   this.sampleLink_.addEventListener(
       'click',
-      this.bind_(this, this.onSampleClick_),
+      this.bind_(this, this.requestVideoSample_),
       false);
   this.console_ = document.getElementById('console');
   this.playButton_ = document.getElementById('playpause');
   this.playButton_.addEventListener(
       'click',
-      this.bind_(this, this.onClick_),
+      this.onClick_,
       false);
   this.fullscreenButton_ = document.getElementById('fullscreen');
   this.fullscreenButton_.addEventListener(
@@ -48,10 +48,11 @@ var Application = function() {
 
   this.videoPlayer_ = new VideoPlayer();
   this.ads_ = new Ads(this, this.videoPlayer_);
-  this.adTagUrl_ = '';
+  this.adXml_ = '';
 
   this.videoPlayer_.registerVideoEndedCallback(
       this.bind_(this, this.onContentEnded_));
+  this.httpRequest_ = null;
 };
 
 Application.prototype.log = function(message) {
@@ -82,17 +83,37 @@ Application.prototype.bind_ = function(thisObj, fn) {
   };
 };
 
-Application.prototype.onSampleClick_ = function() {
-  this.tagBox_.value = this.sampleTag;
+Application.prototype.requestVideoSample_ = function() {
+  this.makeRequest_('http://ryanthompson591.github.io/vpaidExamples/xmlExamples/VpaidVideoPlayerSample.xml');
+};
+
+Application.prototype.makeRequest_ = function(url) {
+  if (window.XMLHttpRequest) {
+    this.httpRequest_ = new XMLHttpRequest();
+  } else if (window.ActiveXObject) {
+    try {
+      this.httpRequest_ = new ActiveXObject("Msxml2.XMLHTTP");
+    } 
+    catch (e) {
+      this.httpRequest_ = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+  }
+  this.httpRequest_.onreadystatechange = this.bind_(this, this.setXml_);
+  this.httpRequest_.open('GET', url);
+  this.httpRequest_.send();
+};
+
+Application.prototype.setXml_ = function() {
+  this.xmlBox_.value = this.httpRequest_.responseText;
 };
 
 Application.prototype.onClick_ = function() {
   if (!this.adsDone_) {
-    if (this.tagBox_.value == '') {
-      this.log("Error: please fill in an ad tag");
+    if (this.xmlBox_.value == '') {
+      this.log("Error: please fill in xml");
       return;
     } else {
-      this.adTagUrl_ = this.tagBox_.value;
+      this.adXml_ = this.xmlBox_.value;
     }
     // The user clicked/tapped - inform the ads controller that this code
     // is being run in a user action thread.
@@ -165,7 +186,7 @@ Application.prototype.updateChrome_ = function() {
 };
 
 Application.prototype.loadAds_ = function() {
-  this.ads_.requestAds(this.adTagUrl_);
+  this.ads_.requestXml(this.adXml_);
 };
 
 Application.prototype.onFullscreenChange_ = function() {
@@ -204,3 +225,4 @@ Application.prototype.makeAdsFullscreen_ = function() {
 Application.prototype.onContentEnded_ = function() {
   this.ads_.contentEnded();
 };
+

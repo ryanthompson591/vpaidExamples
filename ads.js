@@ -36,9 +36,10 @@ Ads.prototype.initialUserAction = function() {
   this.adDisplayContainer_.initialize();
 };
 
-Ads.prototype.requestAds = function(adTagUrl) {
+Ads.prototype.requestXml = function(adXML) {
   var adsRequest = new google.ima.AdsRequest();
-  adsRequest.adTagUrl = adTagUrl;
+  adsRequest.adTagUrl = '';  // No url, using xml instead
+  adsRequest.adsResponse = adXML;
   adsRequest.linearAdSlotWidth = this.videoPlayer_.width;
   adsRequest.linearAdSlotHeight = this.videoPlayer_.height;
   adsRequest.nonLinearAdSlotWidth = this.videoPlayer_.width;
