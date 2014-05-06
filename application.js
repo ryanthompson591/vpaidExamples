@@ -101,7 +101,7 @@ Application.prototype.requestNonLinearSample_ = function() {
 };
 
 Application.prototype.requestSample_ = function() {
-  this.makeRequest_('http://ryanthompson591.github.io/vpaidExamples/xmlExamples/TestersSample.xml');
+  this.makeRequest_('http://ryanthompson591.github.io/vpaidExamples/xmlExamples/TesterSample.xml');
 };
 
 Application.prototype.requestGameSample_ = function() {
