@@ -394,7 +394,7 @@ VpaidAd.prototype.getAdHeight = function() {
 /**
  * @return {number} The time remaining in the ad.
  */
-VpaidAd.prototype.getRemainingTime = function() {
+VpaidAd.prototype.getAdRemainingTime = function() {
   return this.attributes_['remainingTime'];
 };
 
