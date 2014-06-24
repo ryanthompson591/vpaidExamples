@@ -1,7 +1,8 @@
-/* 
- *@fileoverview A VPAID ad useful for testing functionality of the sdk.
+/**
+ * @fileoverview A VPAID ad useful for testing functionality of the sdk.
  * This particular ad will just play a video.
  *
+ * @author ryanthompson@google.com (Ryan Thompson)
  */
 
 
@@ -27,7 +28,7 @@ var VpaidVideoPlayer = function() {
 
   /**
    * An object containing all registered events.  These events are all
-   * callbacks for use by the vpaid ad.
+   * callbacks for use by the VPAID ad.
    * @type {Object}
    * @private
    */
@@ -192,7 +193,7 @@ VpaidVideoPlayer.prototype.updateVideoPlayerSize_ = function() {
 
 
 /**
- * Returns the versions of vpaid ad supported.
+ * Returns the versions of VPAID ad supported.
  * @param {string} version
  * @return {string}
  */
@@ -392,7 +393,7 @@ VpaidVideoPlayer.prototype.getAdHeight = function() {
 /**
  * @return {number} The time remaining in the ad.
  */
-VpaidVideoPlayer.prototype.getRemainingTime = function() {
+VpaidVideoPlayer.prototype.getAdRemainingTime = function() {
   return this.attributes_['remainingTime'];
 };
 
@@ -466,8 +467,8 @@ VpaidVideoPlayer.prototype.muteButtonOnClick_ = function() {
 
 
 /**
- * Main function called by wrapper to get the vpaid ad.
- * @return {Object} The vpaid compliant ad.
+ * Main function called by wrapper to get the VPAID ad.
+ * @return {Object} The VPAID compliant ad.
  */
 var getVPAIDAd = function() {
   return new VpaidVideoPlayer();
