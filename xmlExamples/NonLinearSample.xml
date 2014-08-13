@@ -25,7 +25,7 @@
 </TrackingEvents>
 <AdParameters>
 <![CDATA[
-{"overlays":["http://ryanthompson591.github.io/vpaidExamples/img/ChangeToALinearAd.jpg","http://ryanthompson591.github.io/vpaidExamples/img/ClickThroughAnimatedByCss.jpg"],
+{"overlays":["http://ryanthompson591.github.io/vpaidExamples/img/ClickThroughAnimatedByCss.jpg","http://ryanthompson591.github.io/vpaidExamples/img/ChangeToALinearAd.jpg"],
  "videos":[{"url":"http://video.webmfiles.org/big-buck-bunny_trailer.webm","mimetype":"video/webm"},
   {"url":"http://download.wavetlan.com/SVV/Media/HTTP/MP4/ConvertedFiles/Media-Convert/Unsupported/test7.mp4","mimetype":"video/mp4"}]}
 ]]>
