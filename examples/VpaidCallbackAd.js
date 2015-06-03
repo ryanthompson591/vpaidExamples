@@ -41,7 +41,8 @@ var VpaidAd = function() {
  * Html to populate into the ad.  This provides all UI elements for the ad.
  */
 VpaidAd.HTML_TEMPLATE =
-    '<div style="background:#f5f5f5; width:100%; height:100%">' +
+    '<style type="text/css">div { font-size: 1.0em }</style>' +
+    '<div style="background:#f5f5f5; width:100%; height:100%; font-size=0.5em;">' +
     '<div style="height: 100%;' +
     '    display: inline-block; float:left;">' +
     '<select id="eventSelect" size="10">' +
@@ -73,7 +74,7 @@ VpaidAd.HTML_TEMPLATE =
     '</select>' +
     '</div>' +
     '<div>' +
-    '<table>' +
+    '<table style="font-size=0.5em;">' +
     '  <tr>' +
     '    <td><b>companions</b><br><span id="companions">None</span></td>' +
     '    <td><b>desired bitrate</b><br>' +
@@ -118,7 +119,7 @@ VpaidAd.HTML_TEMPLATE =
     '</div>' +
     '<h2><input type="button" id="triggerEvent" value="Trigger Event"/></h2>' +
     '</div>' +
-    '<div style="position:fixed; bottom:10px">' +
+    '<div>' +
     '  Last event from player <input type="text" style="width:200px"' +
     '     id="lastVpaidEvent" value=""/>' +
     '</div>' +
@@ -183,10 +184,10 @@ VpaidAd.prototype.renderSlot_ = function() {
  * @private
  */
 VpaidAd.prototype.addButtonListeners_ = function() {
-  var eventSelect = document.getElementById('eventSelect');
+  var eventSelect = this.slot_.getElementById('eventSelect');
   eventSelect.addEventListener('change', this.eventSelected_.bind(this));
 
-  var triggerEvent = document.getElementById('triggerEvent');
+  var triggerEvent = this.slot_.getElementById('triggerEvent');
   triggerEvent.addEventListener('click', this.triggerEvent_.bind(this));
 };
 
@@ -196,7 +197,7 @@ VpaidAd.prototype.addButtonListeners_ = function() {
  * @private
  */
 VpaidAd.prototype.triggerEvent_ = function() {
-  var eventSelect = document.getElementById('eventSelect');
+  var eventSelect = this.getElement_('eventSelect');
   var value = eventSelect.value;
   if (value == 'AdClickThru') {
     this.adClickThruHandler_();
@@ -448,7 +449,7 @@ VpaidAd.prototype.getAdLinear = function() {
  * @param {string} message
  */
 VpaidAd.prototype.log = function(message) {
-  var logTextArea = document.getElementById('lastVpaidEvent');
+  var logTextArea = this.getElement_('lastVpaidEvent');
   if (logTextArea != null) {
     logTextArea.value = message;
   }
@@ -465,10 +466,10 @@ VpaidAd.prototype.adClickThruHandler_ = function() {
     this.log('Error: AdClickThru function callback not subscribed.');
     return;
   }
-  var clickThruUrl = document.getElementById('clickThruUrl').value;
-  var clickThruId = document.getElementById('clickThruId').value;
+  var clickThruUrl = this.getElement_('clickThruUrl').value;
+  var clickThruId = this.getElement_('clickThruId').value;
   var clickThruPlayerHandles =
-      document.getElementById('clickThruPlayerHandels').value;
+      this.getElement_('clickThruPlayerHandels').value;
   this.log('AdClickThu(' + clickThruUrl + ',' +
       clickThruId + ',' + clickThruPlayerHandles + ')');
   this.eventCallbacks_['AdClickThru'](
@@ -488,7 +489,7 @@ VpaidAd.prototype.adErrorHandler_ = function() {
     this.log('AdError function callback not subscribed.');
     return;
   }
-  var adError = document.getElementById('adErrorMsg').value;
+  var adError = this.getElement_('adErrorMsg').value;
   this.log('adError(' + adError + ')');
   this.eventCallbacks_['AdError'](adError);
 };
@@ -504,7 +505,7 @@ VpaidAd.prototype.adLogHandler_ = function() {
     this.log('Error: AdLog function callback not subscribed.');
     return;
   }
-  var adLogMsg = document.getElementById('adLogMsg').value;
+  var adLogMsg = this.getElement_('adLogMsg').value;
   this.log('adLog(' + adLogMsg + ')');
   this.eventCallbacks_['AdLog'](adLogMsg);
 };
@@ -520,7 +521,7 @@ VpaidAd.prototype.adInteractionHandler_ = function() {
     this.log('Error: AdInteraction function callback not subscribed.');
     return;
   }
-  var adInteraction = document.getElementById('adInteractionId').value;
+  var adInteraction = this.getElement_('adInteractionId').value;
   this.log('adLog(' + adInteraction + ')');
   this.eventCallbacks_['AdInteraction'](adInteraction);
 };
@@ -532,16 +533,16 @@ VpaidAd.prototype.adInteractionHandler_ = function() {
  * @private
  */
 VpaidAd.prototype.eventSelected_ = function() {
-  var clickThruParams = document.getElementById('AdClickThruOptions');
-  var adErrorParams = document.getElementById('AdErrorOptions');
-  var adLogParams = document.getElementById('AdLogOptions');
-  var adInteractionParams = document.getElementById('AdInteractionOptions');
+  var clickThruParams = this.getElement_('AdClickThruOptions');
+  var adErrorParams = this.getElement_('AdErrorOptions');
+  var adLogParams = this.getElement_('AdLogOptions');
+  var adInteractionParams = this.getElement_('AdInteractionOptions');
   clickThruParams.style.display = 'none';
   adErrorParams.style.display = 'none';
   adLogParams.style.display = 'none';
   adInteractionParams.style.display = 'none';
 
-  var eventSelect = document.getElementById('eventSelect');
+  var eventSelect = this.getElement_('eventSelect');
   var value = eventSelect.value;
   if (value == 'AdClickThru') {
     clickThruParams.style.display = 'inline';
@@ -572,9 +573,29 @@ VpaidAd.prototype.isEventSubscribed_ = function(eventName) {
  */
 VpaidAd.prototype.fillProperties_ = function() {
   for (var key in this.attributes_) {
-    var span = document.getElementById(key);
+    var span = this.getElement_(key);
     span.textContent = this.attributes_[key];
   }
+};
+
+
+/**
+ * Gets an element by its name.
+ *
+ * @return {?Element}
+ * @private
+ */
+VpaidAd.prototype.getElement_ = function(key) {
+  var element = document.getElementById(key);
+  if (element != null) {
+    return element;
+  }
+  try {
+    var element = parent.document.getElementById(key);
+  } catch(e) {
+    return null;
+  }
+  return element;
 };
 
 
