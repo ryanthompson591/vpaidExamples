@@ -97,6 +97,11 @@ VpaidAd.HTML_TEMPLATE =
     '    <td><b>view mode</b><br><span id="viewMode">normal</span></td>' +
     '    <td><b>width</b><br><span id="width">5</span></td>' +
     '  </tr>' +
+    '  <tr>' +
+    '    <td><b>Percent Visible</b><br><span id="percentVisible">100</span></td>' +
+    '    <td></td>' +
+    '    <td></td>' +
+    '  </tr>' +
     '</table>' +
     '<div>' +
     '<hr>' +
@@ -596,6 +601,61 @@ VpaidAd.prototype.getElement_ = function(key) {
     return null;
   }
   return element;
+};
+
+
+/**
+ * Add scroll listeners.
+ * @private
+ */
+VpaidAd.prototype.setupScrollListener_ = function() {
+  try {
+    window.addEventListener("scroll", this.logPercentVisible_this.logPercentVisible_.bind(this));
+  } catch(e) {
+    // If we're not in a friendly iframe do no action.
+  }
+};
+
+
+/**
+ * Printss the percent of the ad that is visible. If
+ * the iframe is not friendly it sends an error.
+ * @return {boolean}
+ * @private
+ */
+VpaidAd.prototype.logPercentVisible_ = function() {
+  try {
+    var slot = this.slot_;
+    var rect = slot.getBoundingClientRect();
+    var right = Math.min(rect.left + slot.offsetWidth,
+        window.pageXOffset + window.innerWidth);
+    var left = Math.max(rect.left, window.pageXOffset);
+    var width = window.parent.innerWidth ||
+        window.parent.document.documentElement.clientWidth ||
+        window.parent.document.body.clientWidth;
+    var height = window.parent.innerHeight ||
+        window.parent.document.documentElement.clientHeight ||
+        window.parent.document.body.clientHeight;
+    var top = rect.top < 0 ? 0 : Math.min(rect.top, width);
+    var bottom = rect.bottom < 0 ? 0 : Math.min(rect.bottom, height);
+    var percentage = 0;
+    var visibleY = bottom - top;
+    var visibleX = right - left;
+    if (visibleY > 0 && visibleX > 0) {
+      var elementSize = slot.offsetWidth * slot.offsetHeight;
+      if (elementSize != 0) {
+        percentage = Math.round(
+            (visibleX * visibleY) * 100 / elementSize);
+      }
+    }
+    this.log('Percentage of ad visible ' + percentage);
+    this.attributes_['percentVisible'] = value;
+    this.ping_('www.example.com/percentvisible?total=' + percentage);
+  } catch (e) {
+    this.callEvent_('AdError');
+    return false;
+  }
+  return true;
 };
 
 
