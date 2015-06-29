@@ -184,10 +184,10 @@ VpaidAd.prototype.renderSlot_ = function() {
  * @private
  */
 VpaidAd.prototype.addButtonListeners_ = function() {
-  var eventSelect = this.slot_.getElementById('eventSelect');
+  var eventSelect = this.getElement_('eventSelect');
   eventSelect.addEventListener('change', this.eventSelected_.bind(this));
 
-  var triggerEvent = this.slot_.getElementById('triggerEvent');
+  var triggerEvent = this.getElement_('triggerEvent');
   triggerEvent.addEventListener('click', this.triggerEvent_.bind(this));
 };
 
