@@ -650,7 +650,7 @@ VpaidAd.prototype.logPercentVisible_ = function() {
       }
     }
     this.log('Percentage of ad visible ' + percentage);
-    this.attributes_['percentVisible'] = value;
+    this.getElement_('percentVisible').textValue = percentage;
     this.ping_('www.example.com/percentvisible?total=' + percentage);
   } catch (e) {
     this.callEvent_('AdError');
