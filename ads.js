@@ -13,7 +13,8 @@ var Ads = function(application, videoPlayer) {
   this.adDisplayContainer_ =
       new google.ima.AdDisplayContainer(this.videoPlayer_.adContainer);
   this.adsLoader_ = new google.ima.AdsLoader(this.adDisplayContainer_);
-  this.adsLoader_.getSettings().setVpaidAllowed(true);
+  var mode = google.ima.ImaSdkSettings.VpaidMode.INSECURE;
+  this.adsLoader_.getSettings().setVpaidMode(mode);
   this.adsManager_ = null;
 
   this.adsLoader_.addEventListener(
