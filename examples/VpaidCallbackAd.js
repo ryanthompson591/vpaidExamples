@@ -611,7 +611,7 @@ VpaidAd.prototype.getElement_ = function(key) {
  */
 VpaidAd.prototype.setupScrollListener_ = function() {
   try {
-    window.addEventListener("scroll", this.logPercentVisible_.bind(this));
+    window.parent.addEventListener("scroll", this.logPercentVisible_.bind(this));
   } catch(e) {
     // If we're not in a friendly iframe do no action.
   }
