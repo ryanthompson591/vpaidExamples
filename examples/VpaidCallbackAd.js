@@ -629,8 +629,8 @@ VpaidAd.prototype.logPercentVisible_ = function() {
     var slot = this.slot_;
     var rect = slot.getBoundingClientRect();
     var right = Math.min(rect.left + slot.offsetWidth,
-        window.pageXOffset + window.innerWidth);
-    var left = Math.max(rect.left, window.pageXOffset);
+        window.parent.pageXOffset + window.parent.innerWidth);
+    var left = Math.max(rect.left, window.parent.pageXOffset);
     var width = window.parent.innerWidth ||
         window.parent.document.documentElement.clientWidth ||
         window.parent.document.body.clientWidth;
