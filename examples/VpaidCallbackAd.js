@@ -653,7 +653,6 @@ VpaidAd.prototype.logPercentVisible_ = function() {
     this.getElement_('percentVisible').textValue = percentage;
     this.ping_('www.example.com/percentvisible?total=' + percentage);
   } catch (e) {
-    this.callEvent_('AdError');
     return false;
   }
   return true;
