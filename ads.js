@@ -11,7 +11,7 @@ var Ads = function(application, videoPlayer) {
   this.videoPlayer_ = videoPlayer;
   this.contentCompleteCalled_ = false;
   this.adDisplayContainer_ =
-      new google.ima.AdDisplayContainer(this.videoPlayer_.adContainer);
+      new google.ima.AdDisplayContainer(this.videoPlayer_.adContainer, this.videoPlayer_.contentPlayer);
   this.adsLoader_ = new google.ima.AdsLoader(this.adDisplayContainer_);
   var mode = google.ima.ImaSdkSettings.VpaidMode.INSECURE;
   this.adsLoader_.getSettings().setVpaidMode(mode);
