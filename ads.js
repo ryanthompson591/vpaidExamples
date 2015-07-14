@@ -73,6 +73,9 @@ Ads.prototype.contentEnded = function() {
 
 Ads.prototype.onAdsManagerLoaded_ = function(adsManagerLoadedEvent) {
   this.application_.log('Ads loaded.');
+  if (this.adsManager_ != null) {
+    return;
+  }
   this.adsManager_ = adsManagerLoadedEvent.getAdsManager(
       this.videoPlayer_.contentPlayer);
   this.processAdsManager_(this.adsManager_);
