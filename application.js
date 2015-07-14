@@ -130,6 +130,7 @@ Application.prototype.setXml_ = function() {
 
 Application.prototype.onClick_ = function() {
   if (!this.adsDone_) {
+    this.log_('Click event.');
     if (this.xmlBox_.value == '') {
       this.log("Error: please fill in xml");
       return;
