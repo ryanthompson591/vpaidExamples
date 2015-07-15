@@ -38,6 +38,11 @@ Ads.prototype.initialUserAction = function() {
 };
 
 Ads.prototype.requestXml = function(adXML) {
+  // Mobile calls requestXml when video source changes.
+  // The VPAID ad will change the video source.
+  if (this.adsManager_ != null) {
+    return;
+  }
   var adsRequest = new google.ima.AdsRequest();
   adsRequest.adTagUrl = '';  // No url, using xml instead
   adsRequest.adsResponse = adXML;
@@ -73,9 +78,6 @@ Ads.prototype.contentEnded = function() {
 
 Ads.prototype.onAdsManagerLoaded_ = function(adsManagerLoadedEvent) {
   this.application_.log('Ads loaded.');
-  if (this.adsManager_ != null) {
-    return;
-  }
   this.adsManager_ = adsManagerLoadedEvent.getAdsManager(
       this.videoPlayer_.contentPlayer);
   this.processAdsManager_(this.adsManager_);
