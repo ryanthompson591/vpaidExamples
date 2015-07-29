@@ -189,6 +189,8 @@ VpaidVideoPlayer.prototype.updateVideoSlot_ = function() {
 VpaidVideoPlayer.prototype.updateVideoPlayerSize_ = function() {
   this.videoSlot_.setAttribute('width', this.attributes_['width']);
   this.videoSlot_.setAttribute('height', this.attributes_['height']);
+  this.videoSlot_.style.width = this.attributes_['width'];
+  this.videoSlot_.style.height = this.attributes_['height'];
 };
 
 
