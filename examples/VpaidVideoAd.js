@@ -164,7 +164,9 @@ VpaidVideoPlayer.prototype.updateVideoSlot_ = function() {
     this.log('Warning: No video element passed to ad, creating element.');
     this.slot_.appendChild(this.videoSlot_);
   }
-  this.updateVideoPlayerSize_();
+  // TODO right now the sdk is sending in the wrong size on init.
+  // there should be no need to change element sizes from the start.
+  //this.updateVideoPlayerSize_();
   var foundSource = false;
   var videos = this.parameters_.videos || [];
   for (var i = 0; i < videos.length; i++) {
