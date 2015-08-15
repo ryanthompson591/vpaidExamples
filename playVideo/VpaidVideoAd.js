@@ -288,7 +288,7 @@ VpaidVideoPlayer.prototype.pauseAd = function() {
 VpaidVideoPlayer.prototype.resumeAd = function() {
   this.log('resumeAd');
   this.videoSlot_.play();
-  this.callEvent_('AdResumed');
+  this.callEvent_('AdPlaying');
 };
 
 
