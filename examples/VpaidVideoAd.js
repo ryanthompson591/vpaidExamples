@@ -42,17 +42,23 @@ var VpaidVideoPlayer = function() {
   this.attributes_ = {
     'companions' : '',
     'desiredBitrate' : 256,
-    'duration' : 30,
+    'duration' : 13,
     'expanded' : false,
     'height' : 0,
     'icons' : '',
     'linear' : true,
-    'remainingTime' : 10,
+    'remainingTime' : 13,
     'skippableState' : false,
     'viewMode' : 'normal',
     'width' : 0,
     'volume' : 1.0
   };
+
+  /**
+   * @type {?number} id of the interval used to synch remaining time
+   * @private
+   */
+  this.intervalId_ = null;
 
   /**
    * A set of events to be reported.
@@ -230,6 +236,11 @@ VpaidVideoPlayer.prototype.startAd = function() {
   this.slot_.appendChild(muteButton);
 
   this.callEvent_('AdStarted');
+  var callback = (function(){
+    this.attributes_['remainingTime'] -= 0.25;
+      this.callEvent_('AdRemainingTimeChange');
+  }).bind(this);
+  this.intervalId_ = setInterval(callback, 250);
 };
 
 
@@ -238,6 +249,9 @@ VpaidVideoPlayer.prototype.startAd = function() {
  */
 VpaidVideoPlayer.prototype.stopAd = function() {
   this.log('Stopping ad');
+  if (this.intervalId_){
+    clearInterval(this.intervalId_)
+  }
   // Calling AdStopped immediately terminates the ad. Setting a timeout allows
   // events to go through.
   var callback = this.callEvent_.bind(this);
@@ -286,6 +300,9 @@ VpaidVideoPlayer.prototype.pauseAd = function() {
   this.log('pauseAd');
   this.videoSlot_.pause();
   this.callEvent_('AdPaused');
+  if (this.intervalId_){
+    clearInterval(this.intervalId_)
+  }
 };
 
 
@@ -296,6 +313,11 @@ VpaidVideoPlayer.prototype.resumeAd = function() {
   this.log('resumeAd');
   this.videoSlot_.play();
   this.callEvent_('AdPlaying');
+  var callback = (function(){
+    this.attributes_['remainingTime'] -= 0.25;
+    this.callEvent_('AdRemainingTimeChange');
+  }).bind(this);
+  this.intervalId_ = setInterval(callback, 250);
 };
 
 
