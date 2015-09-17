@@ -433,7 +433,7 @@ VpaidVideoPlayer.prototype.getAdRemainingTime = function() {
  * @return {number} The duration of the ad.
  */
 VpaidVideoPlayer.prototype.getAdDuration = function() {
-  return this.attibutes_['duration'];
+  return this.attributes_['duration'];
 };
 
 
