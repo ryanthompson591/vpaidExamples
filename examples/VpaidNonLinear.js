@@ -181,6 +181,8 @@ VpaidNonLinear.prototype.overlay2OnClick_ = function() {
   if (!foundSource) {
     // Unable to find a source video.
     this.callEvent_('AdError');
+  } else {
+    this.attributes_.duration = this.videoSlot_.duration;
   }
   this.videoSlot_.addEventListener(
       'ended',
