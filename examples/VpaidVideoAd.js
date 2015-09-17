@@ -42,6 +42,7 @@ var VpaidVideoPlayer = function() {
   this.attributes_ = {
     'companions' : '',
     'desiredBitrate' : 256,
+    'duration': 30,
     'expanded' : false,
     'height' : 0,
     'icons' : '',
@@ -156,6 +157,9 @@ VpaidVideoPlayer.prototype.timeUpdateHandler_ = function() {
     var lastQuartileEvent = this.quartileEvents_[this.lastQuartileIndex_].event;
     this.eventsCallbacks_[lastQuartileEvent]();
     this.lastQuartileIndex_ += 1;
+  }
+  if (this.attributes_['duration'] != this.videoSlot_.duration) {
+    this.callEvent('AdDurationChange');
   }
 };
 
@@ -429,10 +433,7 @@ VpaidVideoPlayer.prototype.getAdRemainingTime = function() {
  * @return {number} The duration of the ad.
  */
 VpaidVideoPlayer.prototype.getAdDuration = function() {
-  if (this.videoSlot_ != null) {
-    return this.videoSlot_.duration;
-  }
-  return 30;
+  return this.attibutes_['duration'];
 };
 
 
