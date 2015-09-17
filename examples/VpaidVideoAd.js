@@ -159,7 +159,7 @@ VpaidVideoPlayer.prototype.timeUpdateHandler_ = function() {
     this.lastQuartileIndex_ += 1;
   }
   if (this.attributes_['duration'] != this.videoSlot_.duration) {
-    this.callEvent('AdDurationChange');
+    this.callEvent_('AdDurationChange');
   }
 };
 
