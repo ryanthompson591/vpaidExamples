@@ -42,7 +42,6 @@ var VpaidVideoPlayer = function() {
   this.attributes_ = {
     'companions' : '',
     'desiredBitrate' : 256,
-    'duration' : 13,
     'expanded' : false,
     'height' : 0,
     'icons' : '',
@@ -430,7 +429,10 @@ VpaidVideoPlayer.prototype.getAdRemainingTime = function() {
  * @return {number} The duration of the ad.
  */
 VpaidVideoPlayer.prototype.getAdDuration = function() {
-  return this.attributes_['duration'];
+  if (this.videoSlot_ != null) {
+    return this.videoSlot_.duration;
+  }
+  return 30;
 };
 
 
@@ -501,3 +503,4 @@ VpaidVideoPlayer.prototype.muteButtonOnClick_ = function() {
 var getVPAIDAd = function() {
   return new VpaidVideoPlayer();
 };
+
