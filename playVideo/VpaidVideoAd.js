@@ -1,7 +1,8 @@
-/* 
- *@fileoverview A VPAID ad useful for testing functionality of the sdk.
+/**
+ * @fileoverview A VPAID ad useful for testing functionality of the sdk.
  * This particular ad will just play a video.
  *
+ * @author ryanthompson@google.com (Ryan Thompson)
  */
 
 
@@ -27,7 +28,7 @@ var VpaidVideoPlayer = function() {
 
   /**
    * An object containing all registered events.  These events are all
-   * callbacks for use by the vpaid ad.
+   * callbacks for use by the VPAID ad.
    * @type {Object}
    * @private
    */
@@ -41,17 +42,23 @@ var VpaidVideoPlayer = function() {
   this.attributes_ = {
     'companions' : '',
     'desiredBitrate' : 256,
-    'duration' : 30,
+    'duration': 30,
     'expanded' : false,
     'height' : 0,
     'icons' : '',
     'linear' : true,
-    'remainingTime' : 10,
+    'remainingTime' : 13,
     'skippableState' : false,
     'viewMode' : 'normal',
     'width' : 0,
     'volume' : 1.0
   };
+
+  /**
+   * @type {?number} id of the interval used to synch remaining time
+   * @private
+   */
+  this.intervalId_ = null;
 
   /**
    * A set of events to be reported.
@@ -151,6 +158,10 @@ VpaidVideoPlayer.prototype.timeUpdateHandler_ = function() {
     this.eventsCallbacks_[lastQuartileEvent]();
     this.lastQuartileIndex_ += 1;
   }
+  if (this.attributes_['duration'] != this.videoSlot_.duration) {
+    this.attributes_['duration'] = this.videoSlot_.duration;
+    this.callEvent_('AdDurationChange');
+  }
 };
 
 
@@ -163,7 +174,9 @@ VpaidVideoPlayer.prototype.updateVideoSlot_ = function() {
     this.log('Warning: No video element passed to ad, creating element.');
     this.slot_.appendChild(this.videoSlot_);
   }
-  this.updateVideoPlayerSize_();
+  // TODO right now the sdk is sending in the wrong size on init.
+  // there should be no need to change element sizes from the start.
+  //this.updateVideoPlayerSize_();
   var foundSource = false;
   var videos = this.parameters_.videos || [];
   for (var i = 0; i < videos.length; i++) {
@@ -186,13 +199,17 @@ VpaidVideoPlayer.prototype.updateVideoSlot_ = function() {
  * @private
  */
 VpaidVideoPlayer.prototype.updateVideoPlayerSize_ = function() {
-  this.videoSlot_.setAttribute('width', this.attributes_['width']);
-  this.videoSlot_.setAttribute('height', this.attributes_['height']);
+  try {
+    this.videoSlot_.setAttribute('width', this.attributes_['width']);
+    this.videoSlot_.setAttribute('height', this.attributes_['height']);
+    this.videoSlot_.style.width = this.attributes_['width'] + 'px';
+    this.videoSlot_.style.height = this.attributes_['height'] + 'px';
+  } catch (e) { /* no op*/}
 };
 
 
 /**
- * Returns the versions of vpaid ad supported.
+ * Returns the versions of VPAID ad supported.
  * @param {string} version
  * @return {string}
  */
@@ -223,6 +240,11 @@ VpaidVideoPlayer.prototype.startAd = function() {
   this.slot_.appendChild(muteButton);
 
   this.callEvent_('AdStarted');
+  var callback = (function(){
+    this.attributes_['remainingTime'] -= 0.25;
+      this.callEvent_('AdRemainingTimeChange');
+  }).bind(this);
+  this.intervalId_ = setInterval(callback, 250);
 };
 
 
@@ -231,6 +253,9 @@ VpaidVideoPlayer.prototype.startAd = function() {
  */
 VpaidVideoPlayer.prototype.stopAd = function() {
   this.log('Stopping ad');
+  if (this.intervalId_){
+    clearInterval(this.intervalId_)
+  }
   // Calling AdStopped immediately terminates the ad. Setting a timeout allows
   // events to go through.
   var callback = this.callEvent_.bind(this);
@@ -279,6 +304,9 @@ VpaidVideoPlayer.prototype.pauseAd = function() {
   this.log('pauseAd');
   this.videoSlot_.pause();
   this.callEvent_('AdPaused');
+  if (this.intervalId_){
+    clearInterval(this.intervalId_)
+  }
 };
 
 
@@ -288,7 +316,12 @@ VpaidVideoPlayer.prototype.pauseAd = function() {
 VpaidVideoPlayer.prototype.resumeAd = function() {
   this.log('resumeAd');
   this.videoSlot_.play();
-  this.callEvent_('AdResumed');
+  this.callEvent_('AdPlaying');
+  var callback = (function(){
+    this.attributes_['remainingTime'] -= 0.25;
+    this.callEvent_('AdRemainingTimeChange');
+  }).bind(this);
+  this.intervalId_ = setInterval(callback, 250);
 };
 
 
@@ -392,7 +425,7 @@ VpaidVideoPlayer.prototype.getAdHeight = function() {
 /**
  * @return {number} The time remaining in the ad.
  */
-VpaidVideoPlayer.prototype.getRemainingTime = function() {
+VpaidVideoPlayer.prototype.getAdRemainingTime = function() {
   return this.attributes_['remainingTime'];
 };
 
@@ -446,7 +479,11 @@ VpaidVideoPlayer.prototype.log = function(message) {
  */
 VpaidVideoPlayer.prototype.callEvent_ = function(eventType) {
   if (eventType in this.eventsCallbacks_) {
-    this.eventsCallbacks_[eventType]();
+    if (eventType == 'AdClickThru'){
+      this.eventsCallbacks_[eventType].call(null,null,null,true);
+    } else {
+      this.eventsCallbacks_[eventType]();
+    }
   }
 };
 
@@ -466,8 +503,8 @@ VpaidVideoPlayer.prototype.muteButtonOnClick_ = function() {
 
 
 /**
- * Main function called by wrapper to get the vpaid ad.
- * @return {Object} The vpaid compliant ad.
+ * Main function called by wrapper to get the VPAID ad.
+ * @return {Object} The VPAID compliant ad.
  */
 var getVPAIDAd = function() {
   return new VpaidVideoPlayer();
