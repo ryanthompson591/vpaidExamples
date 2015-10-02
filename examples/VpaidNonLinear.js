@@ -147,7 +147,9 @@ VpaidNonLinear.prototype.handshakeVersion = function(version) {
  * @private
  */
 VpaidNonLinear.prototype.overlayOnClick_ = function() {
-  this.callEvent_('AdClickThru');
+  if ('AdClickThru' in this.eventsCallbacks_) {
+    this.eventsCallbacks_['AdClickThru']('','0',true);
+  }
   // Make the duration longer when a click happens.
   // This is mostly a method to test AdRemainingTimeChange behavior works.
   this.attributes_.duration += 10;
