@@ -139,7 +139,9 @@ VpaidVideoPlayer.prototype.initAd = function(
  * @private
  */
 VpaidVideoPlayer.prototype.overlayOnClick_ = function() {
-  this.callEvent_('AdClickThru');
+  if ('AdClickThru' in this.eventsCallbacks_) {
+    this.eventsCallbacks_['AdClickThru']('','0', true);
+  };
 };
 
 
