@@ -2,8 +2,10 @@
 <Ad id="1234567">
 <InLine>
 <AdSystem>GDFP</AdSystem>
-<AdTitle>Linear VPAID</AdTitle>
+<AdTitle>Linear VPAID Example</AdTitle>
 <Description>Vpaid Linear Video Ad</Description>
+<Error>http://www.example.com/error</Error>
+<Impression>http://www.example.com/impression</Impression>
 <Creatives>
 <Creative sequence="1">
 <Linear>
@@ -32,9 +34,8 @@
 ]]>
 </AdParameters>
 <VideoClicks>
-<ClickThrough id="GDFP">
-<![CDATA[ http://google.com ]]>
-</ClickThrough>
+<ClickThrough id="123">http://google.com</ClickThrough>
+<ClickTracking id="123">http://www.example.com/click</ClickTracking>
 </VideoClicks>
 <MediaFiles>
 <MediaFile apiFramework="VPAID" type="application/javascript">

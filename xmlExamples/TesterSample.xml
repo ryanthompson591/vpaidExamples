@@ -4,6 +4,8 @@
 <AdSystem>GDFP</AdSystem>
 <AdTitle>Linear VPAID</AdTitle>
 <Description>Vpaid Linear Video Ad</Description>
+<Error>http://www.example.com/error</Error>
+<Impression>http://www.example.com/impression</Impression>
 <Creatives>
 <Creative sequence="1">
 <Linear>
@@ -24,9 +26,8 @@
 <Tracking event="acceptInvitation">http://www.example.com/acceptInvitation</Tracking>
 </TrackingEvents>
 <VideoClicks>
-<ClickThrough id="GDFP">
-<![CDATA[ http://google.com ]]>
-</ClickThrough>
+<ClickThrough id="123">http://wikipedia.com</ClickThrough>
+<ClickTracking id="123">http://www.example.com/click</ClickTracking>
 </VideoClicks>
 <MediaFiles>
 <MediaFile apiFramework="VPAID" type="application/javascript">
