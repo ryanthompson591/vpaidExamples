@@ -45,7 +45,7 @@ var VpaidVideoPlayer = function() {
     'duration': 30,
     'expanded' : false,
     'height' : 0,
-    'icons' : '',
+    'icons' : false,
     'linear' : true,
     'remainingTime' : 13,
     'skippableState' : false,
@@ -242,11 +242,6 @@ VpaidVideoPlayer.prototype.startAd = function() {
   this.slot_.appendChild(muteButton);
 
   this.callEvent_('AdStarted');
-  var callback = (function(){
-    this.attributes_['remainingTime'] -= 0.25;
-      this.callEvent_('AdRemainingTimeChange');
-  }).bind(this);
-  this.intervalId_ = setInterval(callback, 250);
 };
 
 
@@ -449,7 +444,7 @@ VpaidVideoPlayer.prototype.getAdCompanions = function() {
 
 
 /**
- * @return {string} A list of icons.
+ * @return {boolean} A list of icons.
  */
 VpaidVideoPlayer.prototype.getAdIcons = function() {
   return this.attributes_['icons'];

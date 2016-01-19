@@ -35,7 +35,7 @@ var VpaidNonLinear = function() {
     'duration' : 10,
     'expanded' : false,
     'height' : 0,
-    'icons' : '',
+    'icons' : false,
     'linear' : false,
     'skippableState' : false,
     'viewMode' : 'normal',
@@ -416,7 +416,7 @@ VpaidNonLinear.prototype.getAdCompanions = function() {
 
 
 /**
- * @return {string} A list of icons.
+ * @return {boolean} A list of icons.
  */
 VpaidNonLinear.prototype.getAdIcons = function() {
   return this.attributes_['icons'];
