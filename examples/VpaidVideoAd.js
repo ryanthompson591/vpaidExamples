@@ -150,6 +150,8 @@ VpaidVideoPlayer.prototype.overlayOnClick_ = function() {
  * @private
  */
 VpaidVideoPlayer.prototype.timeUpdateHandler_ = function() {
+  this.attributes['remainingTime'] =
+      this.videoSlot_.duration - this.videoSlot_.currentTime;
   if (this.lastQuartileIndex_ >= this.quartileEvents_.length) {
     return;
   }
