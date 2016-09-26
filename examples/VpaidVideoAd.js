@@ -130,6 +130,10 @@ VpaidVideoPlayer.prototype.initAd = function(
       'ended',
       this.stopAd.bind(this),
       false);
+  this.videoSlot_.addEventListener(
+      'start',
+      this.videoStart_.bind(this),
+      false);
   this.callEvent_('AdLoaded');
 };
 
@@ -494,6 +498,15 @@ VpaidVideoPlayer.prototype.muteButtonOnClick_ = function() {
     this.attributes_['volume'] = 0.0;
   }
   this.callEvent_('AdVolumeChange');
+};
+
+
+/**
+ * Callback when the video element calls start.
+ * @private
+ */
+VpaidVideoPlayer.prototype.videoStart_ = function() {
+  this.log("video element start event.");
 };
 
 
