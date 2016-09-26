@@ -131,8 +131,8 @@ VpaidVideoPlayer.prototype.initAd = function(
       this.stopAd.bind(this),
       false);
   this.videoSlot_.addEventListener(
-      'start',
-      this.videoStart_.bind(this),
+      'play',
+      this.videoResume_.bind(this),
       false);
   this.callEvent_('AdLoaded');
 };
@@ -505,8 +505,8 @@ VpaidVideoPlayer.prototype.muteButtonOnClick_ = function() {
  * Callback when the video element calls start.
  * @private
  */
-VpaidVideoPlayer.prototype.videoStart_ = function() {
-  this.log("video element start event.");
+VpaidVideoPlayer.prototype.videoResume_ = function() {
+  this.log("video element resumed.");
 };
 
 
