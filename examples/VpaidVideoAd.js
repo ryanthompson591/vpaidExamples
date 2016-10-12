@@ -495,8 +495,10 @@ VpaidVideoPlayer.prototype.callEvent_ = function(eventType) {
 VpaidVideoPlayer.prototype.muteButtonOnClick_ = function() {
   if (this.attributes_['volume'] == 0) {
     this.attributes_['volume'] = 1.0;
+    this.videoSlot_.volume = 1.0;
   } else {
     this.attributes_['volume'] = 0.0;
+    this.videoSlot_.volume = 0.0;
   }
   this.callEvent_('AdVolumeChange');
 };
