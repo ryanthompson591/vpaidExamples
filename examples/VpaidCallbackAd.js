@@ -257,8 +257,8 @@ VpaidAd.prototype.stopAd = function() {
 VpaidAd.prototype.setAdVolume = function(value) {
   this.attributes_['volume'] = value;
   this.log('setAdVolume ' + value);
-  if ('AdVolumeChanged' in this.eventCallbacks_) {
-    this.eventCallbacks_['AdVolumeChanged']();
+  if ('AdVolumeChange' in this.eventCallbacks_) {
+    this.eventCallbacks_['AdVolumeChange']();
   }
 };
 
