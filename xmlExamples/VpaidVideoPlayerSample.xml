@@ -28,7 +28,7 @@
 <AdParameters>
 <![CDATA[
 {"videos":[
- {"url":"http://video.webmfiles.org/big-buck-bunny_trailer.webm","mimetype":"video/webm"},
+ {"url":"http://dl1.webmfiles.org/big-buck-bunny_trailer.webm","mimetype":"video/webm"},
  {"url":"http://techslides.com/demos/sample-videos/small.mp4","mimetype":"video/mp4"}],
  "overlay":"http://ryanthompson591.github.io/vpaidExamples/img/ClickMe.jpg"}
 ]]>
