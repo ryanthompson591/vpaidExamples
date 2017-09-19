@@ -48,6 +48,7 @@ VpaidAd.HTML_TEMPLATE =
     '<select id="eventSelect" size="10">' +
     '  <option value="AdStarted">AdStarted</option>' +
     '  <option value="AdStopped">AdStopped</option>' +
+    '  <option value="AdSkipped">AdSkipped</option>' +
     '  <option value="AdLoaded">AdLoaded</option>' +
     '  <option value="AdLinearChange">AdLinearChange</option>' +
     '  <option value="AdSizeChange">AdSizeChange</option>' +
