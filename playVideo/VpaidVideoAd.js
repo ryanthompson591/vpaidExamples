@@ -392,7 +392,7 @@ VpaidVideoPlayer.prototype.getAdHeight = function() {
 /**
  * @return {number} The time remaining in the ad.
  */
-VpaidVideoPlayer.prototype.getRemainingTime = function() {
+VpaidVideoPlayer.prototype.getAdRemainingTime = function() {
   return this.attributes_['remainingTime'];
 };
 
