@@ -1,0 +1,52 @@
+<VAST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vast.xsd" version="3.0">
+<Ad id="1234567">
+<InLine>
+<AdSystem>GDFP</AdSystem>
+<AdTitle>Linear VPAID Example</AdTitle>
+<Description>Vpaid Linear Video Ad</Description>
+<Error>http://www.example.com/error</Error>
+<Impression>http://www.example.com/impression</Impression>
+<Creatives>
+<Creative sequence="1">
+<Linear>
+<Duration>00:00:13</Duration>
+<TrackingEvents>
+<Tracking event="start">http://www.example.com/start</Tracking>
+<Tracking event="firstQuartile">http://www.example.com/firstQuartile</Tracking>
+<Tracking event="midpoint">http://www.example.com/midpoint</Tracking>
+<Tracking event="thirdQuartile">http://www.example.com/thirdQuartile</Tracking>
+<Tracking event="complete">http://www.example.com/complete</Tracking>
+<Tracking event="mute">http://www.example.com/mute</Tracking>
+<Tracking event="unmute">http://www.example.com/unmute</Tracking>
+<Tracking event="rewind">http://www.example.com/rewind</Tracking>
+<Tracking event="pause">http://www.example.com/pause</Tracking>
+<Tracking event="resume">http://www.example.com/resume</Tracking>
+<Tracking event="fullscreen">http://www.example.com/fullscreen</Tracking>
+<Tracking event="creativeView">http://www.example.com/creativeView</Tracking>
+<Tracking event="acceptInvitation">http://www.example.com/acceptInvitation</Tracking>
+</TrackingEvents>
+<AdParameters>
+<![CDATA[
+{"videos":[
+ {"url":"http://dl1.webmfiles.org/big-buck-bunny_trailer.webm","mimetype":"video/webm"},
+ {"url":"http://techslides.com/demos/sample-videos/small.mp4","mimetype":"video/mp4"}],
+ "overlay":"http://ryanthompson591.github.io/vpaidExamples/img/ClickMe.jpg"}
+]]>
+</AdParameters>
+<VideoClicks>
+<ClickThrough id="123">http://google.com</ClickThrough>
+<ClickTracking id="123">http://www.example.com/click</ClickTracking>
+</VideoClicks>
+<MediaFiles>
+<MediaFile apiFramework="VPAID" type="application/javascript">
+http://ryanthompson591.github.io/vpaidExamples/examples/VpaidVideoAd.js
+</MediaFile>
+</MediaFiles>
+</Linear>
+</Creative>
+<Creative sequence="1"></Creative>
+</Creatives>
+</InLine>
+</Ad>
+</VAST>
+
